@@ -1,5 +1,5 @@
 import './App.css';
-import RoundTracker from './RoundTracker/index.tsx';
+import RoundTracker from './RoundTracker';
 
 function App() {
   return (
