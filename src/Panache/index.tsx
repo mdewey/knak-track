@@ -1,18 +1,22 @@
 import React, { useState, useCallback } from 'react';
 
 const Index = () => {
+  const LEVEL = 4;
+  const CHA = 3;
+  const MAX_PANACHE = CHA + 2
+
   const [panache, setPanache] = useState(5);
   const rest = useCallback(() => {
-    setPanache(5)
-  }, [])
+    setPanache(MAX_PANACHE)
+  }, [MAX_PANACHE])
 
   const addPanache = useCallback(() => {
-    if (panache + 1 >= 5) {
-      setPanache(5)
+    if (panache + 1 >= MAX_PANACHE) {
+      setPanache(MAX_PANACHE)
     } else {
       setPanache(v => v + 1)
     }
-  }, [panache])
+  }, [panache, MAX_PANACHE])
   const subtractPanache = useCallback(() => {
     if (panache - 1 <= 0) {
       setPanache(0)
@@ -38,8 +42,8 @@ const Index = () => {
         <h3>panache options:</h3>
         <ul>
           <li>
-            <div> always on: +4 to damage</div>
-            <div> spend: additional +4 damage</div>
+            <div> always on: +{LEVEL} to damage</div>
+            <div> spend: additional +{LEVEL} damage</div>
           </li>
           <li>
             +2 to init
@@ -59,7 +63,7 @@ const Index = () => {
           <h3>out of panache!</h3>
           <ul>
             <li>
-              no +4 to damage
+              no +{LEVEL} to damage
             </li>
             <li>
               -2 to init
