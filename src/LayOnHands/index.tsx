@@ -1,22 +1,25 @@
 import React, { useState, useCallback } from 'react';
+import { useSessionState } from '../hooks/session-state/useSessionState';
 
 const Index = () => {
   const LEVEL = 4;
   const CHA = 3;
   const MAX_LAY_ON_HANDS = (LEVEL / 2) + CHA
-  const [layOnHands, setLayOnHands] = useState(MAX_LAY_ON_HANDS);
+  const { get: getRemaining, set: setRemaining } = useSessionState("LAY_ON_HANDS", MAX_LAY_ON_HANDS);
+  // const [layOnHands, setLayOnHands] = useState(MAX_LAY_ON_HANDS);
   const rest = useCallback(() => {
-    setLayOnHands(MAX_LAY_ON_HANDS)
-  }, [MAX_LAY_ON_HANDS])
+    setRemaining(MAX_LAY_ON_HANDS)
+  }, [MAX_LAY_ON_HANDS, setRemaining])
 
 
   const consumeResource = useCallback(() => {
-    if (layOnHands - 1 <= 0) {
-      setLayOnHands(0)
+    const value = getRemaining();
+    if (value - 1 <= 0) {
+      setRemaining(0)
     } else {
-      setLayOnHands(v => v - 1)
+      setRemaining(value - 1)
     }
-  }, [layOnHands])
+  }, [getRemaining, setRemaining])
 
 
 
@@ -27,7 +30,7 @@ const Index = () => {
         <button onClick={rest}>
           Rest
         </button>
-        <h3>{layOnHands}</h3>
+        <h3>{getRemaining()}</h3>
         <button onClick={consumeResource}>Lay On Hands</button>
 
       </div>
