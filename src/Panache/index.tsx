@@ -1,29 +1,34 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
+import { useSessionState } from '../hooks/session-state/useSessionState';
 
 const Index = () => {
   const LEVEL = 4;
   const CHA = 3;
   const MAX_PANACHE = CHA + 2
 
-  const [panache, setPanache] = useState(5);
+  const { get: panache, set: setPanache } = useSessionState("PANACHE", MAX_PANACHE);
+
   const rest = useCallback(() => {
     setPanache(MAX_PANACHE)
-  }, [MAX_PANACHE])
+  }, [MAX_PANACHE, setPanache])
 
   const addPanache = useCallback(() => {
-    if (panache + 1 >= MAX_PANACHE) {
+    const p = panache();
+    if (p + 1 >= MAX_PANACHE) {
       setPanache(MAX_PANACHE)
     } else {
-      setPanache(v => v + 1)
+      setPanache(p + 1)
     }
-  }, [panache, MAX_PANACHE])
+  }, [panache, MAX_PANACHE, setPanache])
   const subtractPanache = useCallback(() => {
-    if (panache - 1 <= 0) {
+    const p = panache();
+
+    if (p - 1 <= 0) {
       setPanache(0)
     } else {
-      setPanache(v => v - 1)
+      setPanache(p - 1)
     }
-  }, [panache])
+  }, [panache, setPanache])
   return (
     <div>
       <h2>Panache Tracker</h2>
@@ -32,13 +37,12 @@ const Index = () => {
           Rest
         </button>
         <button onClick={subtractPanache}>-</button>
-        <h3>{panache}</h3>
+        <h3>{panache()}</h3>
         <button onClick={addPanache}>Get a Kill</button>
         <button onClick={addPanache}>Crit</button>
-        <button onClick={addPanache}>Do something darring</button>
       </div>
 
-      {panache > 0 ? <div>
+      {panache() > 0 ? <div>
         <h3>panache options:</h3>
         <ul>
           <li>

@@ -1,25 +1,28 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
+import { useSessionState } from '../hooks/session-state/useSessionState';
 
 const Index = () => {
   const TRAIT_BONUS = 2
+
   const LEVEL = 1 + TRAIT_BONUS;
   const CHA = 3;
   const MAX_SPELLS = {
     FIRST: 5
   }
-  const [firstLevelSpells, setFirstLevelSpells] = useState(MAX_SPELLS.FIRST);
+  const { get: firstLevelSpells, set: setFirstLevelSpells } = useSessionState("FIRST_LEVEL_SPELLS", MAX_SPELLS.FIRST);
   const rest = useCallback(() => {
     setFirstLevelSpells(MAX_SPELLS.FIRST)
-  }, [MAX_SPELLS.FIRST])
+  }, [MAX_SPELLS.FIRST, setFirstLevelSpells])
 
 
   const consumeSpell = useCallback(() => {
-    if (firstLevelSpells - 1 <= 0) {
+    const f = firstLevelSpells();
+    if (f - 1 <= 0) {
       setFirstLevelSpells(0)
     } else {
-      setFirstLevelSpells(v => v - 1)
+      setFirstLevelSpells(f - 1)
     }
-  }, [firstLevelSpells])
+  }, [firstLevelSpells, setFirstLevelSpells])
   return (
     <div>
       <h2>SPELLS</h2>
@@ -27,7 +30,7 @@ const Index = () => {
         <button onClick={rest}>
           Rest
         </button>
-        <h3>{firstLevelSpells}</h3>
+        <h3>{firstLevelSpells()}</h3>
         <button onClick={() => consumeSpell()}>hocus pocus!</button>
 
       </div>
@@ -36,15 +39,13 @@ const Index = () => {
       <h3>Spell options</h3>
       <ul>
         <li>
-          <div>
-            <a
-              href="https://www.d20pfsrd.com/magic/all-spells/c/cure-light-wounds/"
-              target={'_blank'}
-              rel="noreferrer"
-            >
-              Cure Light Wounds = 1d8+{LEVEL}
-            </a>
-          </div>
+          <a
+            href="https://www.d20pfsrd.com/magic/all-spells/c/cure-light-wounds/"
+            target={'_blank'}
+            rel="noreferrer"
+          >
+            Cure Light Wounds = 1d8+{LEVEL}
+          </a>
         </li>
         <li>
           <a

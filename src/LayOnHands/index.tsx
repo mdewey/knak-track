@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useSessionState } from '../hooks/session-state/useSessionState';
 
 const Index = () => {
@@ -6,7 +6,6 @@ const Index = () => {
   const CHA = 3;
   const MAX_LAY_ON_HANDS = (LEVEL / 2) + CHA
   const { get: getRemaining, set: setRemaining } = useSessionState("LAY_ON_HANDS", MAX_LAY_ON_HANDS);
-  // const [layOnHands, setLayOnHands] = useState(MAX_LAY_ON_HANDS);
   const rest = useCallback(() => {
     setRemaining(MAX_LAY_ON_HANDS)
   }, [MAX_LAY_ON_HANDS, setRemaining])

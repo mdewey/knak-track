@@ -1,22 +1,25 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
+import { useSessionState } from '../hooks/session-state/useSessionState';
 
 const Index = () => {
   const LEVEL = 4;
   const CHA = 3;
   const MAX_SMITES = 2
-  const [smites, setSmites] = useState(MAX_SMITES);
+  const { get: smites, set: setSmites } = useSessionState("SMITES", MAX_SMITES);
+
   const rest = useCallback(() => {
     setSmites(MAX_SMITES)
-  }, [])
+  }, [setSmites])
 
 
   const consumeSmite = useCallback(() => {
-    if (smites - 1 <= 0) {
+    const s = smites();
+    if (s - 1 <= 0) {
       setSmites(0)
     } else {
-      setSmites(v => v - 1)
+      setSmites(s - 1)
     }
-  }, [smites])
+  }, [setSmites, smites])
   return (
     <div>
       <h2>Smite Tracker</h2>
@@ -24,7 +27,7 @@ const Index = () => {
         <button onClick={rest}>
           Rest
         </button>
-        <h3>{smites}</h3>
+        <h3>{smites()}</h3>
         <button onClick={consumeSmite}>SMITE</button>
 
       </div>
