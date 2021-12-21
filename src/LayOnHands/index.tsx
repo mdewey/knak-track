@@ -23,12 +23,12 @@ const Index = () => {
   return (
     <div>
       <h2>Lay on Hands</h2>
-      <button onClick={rest}>
-        Rest
-      </button>
       <div className='round-tracker'>
-        <button onClick={consumeResource}>Lay On Hands</button>
+        <button onClick={rest}>
+          Rest
+        </button>
         <h3>{layOnHands}</h3>
+        <button onClick={consumeResource}>Lay On Hands</button>
 
       </div>
 

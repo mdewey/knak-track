@@ -27,10 +27,10 @@ const Index = () => {
   return (
     <div>
       <h2>Panache Tracker</h2>
-      <button onClick={rest}>
-        Rest
-      </button>
       <div className='round-tracker'>
+        <button onClick={rest}>
+          Rest
+        </button>
         <button onClick={subtractPanache}>-</button>
         <h3>{panache}</h3>
         <button onClick={addPanache}>Get a Kill</button>

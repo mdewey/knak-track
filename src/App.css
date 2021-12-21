@@ -1,3 +1,47 @@
+body {
+  background-color: rgb(63, 61, 61);
+  color: rgb(207, 204, 204);
+}
+
+
 .round-tracker {
   display: flex;
+}
+
+
+.trackers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 5rem;
+  margin-top: 0;
+  margin-bottom: 0;
+
+}
+
+.trackers div, h1 {
+  flex-basis: 48%;
+  background-color: rgb(20, 20, 20);
+  margin: 0.25rem;
+}
+
+.trackers h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 3px dashed gold;
+  padding-bottom: 1rem;
+
+}
+
+button {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 1rem;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

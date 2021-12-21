@@ -20,12 +20,12 @@ const Index = () => {
   return (
     <div>
       <h2>Smite Tracker</h2>
-      <button onClick={rest}>
-        Rest
-      </button>
       <div className='round-tracker'>
-        <button onClick={consumeSmite}>SMITE</button>
+        <button onClick={rest}>
+          Rest
+        </button>
         <h3>{smites}</h3>
+        <button onClick={consumeSmite}>SMITE</button>
 
       </div>
 
