@@ -2,11 +2,13 @@ import React, { useState, useCallback } from 'react';
 
 const Index = () => {
   const [currentRound, setCurrentRound] = useState(0);
-  const [usedAttackOfOpportunity, setUsedAttackOfOpportunity] = useState(false)
+  const [usedAttackOfOpportunity, setUsedAttackOfOpportunity] = useState(false);
+  const [godMeddled, setGodMeddled] = useState(false);
 
   const endTurn = useCallback(() => {
     setCurrentRound(s => s + 1);
     setUsedAttackOfOpportunity(false);
+    setGodMeddled(false);
   }, [])
   return (
     <div>
@@ -28,6 +30,16 @@ const Index = () => {
               checked={usedAttackOfOpportunity}
               onClick={() => setUsedAttackOfOpportunity(s => !s)} />
             uses swift action
+          </label>
+        </li>
+        <li>
+          <label>
+            <input
+              type="checkbox"
+              name="godMeddled"
+              checked={godMeddled}
+              onClick={() => setGodMeddled(s => !s)} />
+            has been <a href="https://www.d20pfsrd.com/classes/base-classes/oracle/oracle-curses">meddled</a>
           </label>
         </li>
       </ul>
